@@ -1,0 +1,36 @@
+#!/bin/sh
+ 
+: <<'COMMENT'
+OUTPUT1=$(curl -H "Authorization: token [Need to fill with correct token]" https://api.github.com/repos/heatherhangtran/foofinder/releases --silent | grep "blemobi/go-edge-service/releases/assets" | head -n 1 | cut -d '"' -f 4)
+
+curl -H  "Authorization: token [need to fill with correct token]" -H "Accept:application/octet-stream" -i $OUTPUT1 |  grep "location:" | head -n 1 | cut -c11- > desturl.txt
+
+	rm -f tmpfile
+	echo -n "\"" >> tmpfile
+	head -c -1  desturl.txt >> tmpfile
+	
+	echo -n "\"" >> tmpfile
+
+	url=$(<tmpfile)
+
+	rm -f desturl.txt
+	rm -f output1.zip
+	rm -f rscript
+
+	echo -n 'curl ' >> rscript
+	head -c -2 tmpfile >> rscript
+	echo -n "\"" >> rscript
+	echo -n ' -H "Accept:application/octet-stream" ' >> rscript
+
+	echo -n " -i -o output1.zip" >> rscript
+
+	rm -f tmpfile
+	rm -f heatherhangtran-foofinder
+
+	chmod +x rscript
+	./rscript
+
+	unzip -q output1.zip
+	rm -f output1.zip
+	rm -f rscript	
+COMMENT
