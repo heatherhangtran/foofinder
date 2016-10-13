@@ -1,4 +1,4 @@
-package foofinder
+package main
 
 import "errors"
 
