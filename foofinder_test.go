@@ -1,4 +1,4 @@
-package foofinder
+package main
 
 import (
 	"github.com/bmizerany/assert"
